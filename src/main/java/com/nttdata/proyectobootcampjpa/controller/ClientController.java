@@ -1,26 +1,15 @@
 package com.nttdata.proyectobootcampjpa.controller;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 
-// import com.nttdata.datajpa.business.FilmService;
-// import com.nttdata.datajpa.model.request.UpdateFilmRequest;
-// import com.nttdata.datajpa.model.response.FilmPageResponse;
-// import com.nttdata.datajpa.model.response.FilmResponse;
-// import com.nttdata.datajpa.model.response.StatusResponse;
 import com.nttdata.proyectobootcampjpa.model.jpa.Client;
 import com.nttdata.proyectobootcampjpa.model.request.ClientRequest;
 import com.nttdata.proyectobootcampjpa.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 
 
