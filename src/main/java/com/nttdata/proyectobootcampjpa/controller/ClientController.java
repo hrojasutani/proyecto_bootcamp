@@ -39,8 +39,8 @@ public class ClientController {
     
     
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<BigDecimal> findAll() {
-		return Arrays.asList(BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.TEN);
+	public Flux<BigDecimal> findAll() {
+		return Flux.just(BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.TEN);
 	}
 
 	// @Autowired
