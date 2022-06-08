@@ -8,19 +8,14 @@ import javax.validation.constraints.NotEmpty;
 // import com.nttdata.datajpa.model.response.FilmPageResponse;
 // import com.nttdata.datajpa.model.response.FilmResponse;
 // import com.nttdata.datajpa.model.response.StatusResponse;
+import com.nttdata.proyectobootcampjpa.model.jpa.Client;
+import com.nttdata.proyectobootcampjpa.model.request.ClientRequest;
+import com.nttdata.proyectobootcampjpa.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -33,37 +28,29 @@ import java.util.List;
 @RequestMapping("/client")
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
 		RequestMethod.DELETE })
-
-
 public class ClientController {
-    
-    
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Flux<BigDecimal> findAll() {
-		return Flux.just(BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.TEN);
+
+	@Autowired
+	private ClientService clientService;
+
+	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Mono<Client> save(@RequestBody ClientRequest body) {
+		return Mono.just(clientService.save(body));
 	}
 
-	// @Autowired
-	// private FilmService filmService;
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Flux<List<Client>> findAll() {
+		return Flux.just(clientService.list());
+	}
 
-	// @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	// public Flux<FilmPageResponse> getPaginatedFilms(@RequestParam("page") @NotEmpty @Min(1) Integer page) {
-	// 	return filmService.getFilms(page);
-	// }
+	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Mono<Client> update(@RequestBody ClientRequest body) {
+		return Mono.just(clientService.update(body));
+	}
+	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Mono<Boolean> delete(@PathVariable("id") int id) {
+		return Mono.just(clientService.delete(id));
+	}
 
-	// @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	// public Mono<FilmResponse> getFilm(@PathVariable("id") @NotEmpty @Min(1) Integer idFilm) {
-	// 	return filmService.getFilmById(idFilm);
-	// }
-
-	// @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	// public Mono<StatusResponse> updateFilm(@RequestBody UpdateFilmRequest body) {
-	// 	return filmService.updateFilm(body);
-	// }
-
-	// @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	// public Mono<StatusResponse> deleteFilm(@PathVariable Integer id) {
-	// 	return filmService.deleteFilm(id);
-	// }
 
 }
